@@ -143,25 +143,26 @@ docker compose -p kitchenpos up -d
 
 ### 주문
 
-| 한글명        | 영문명                    | 설명                                                                                                                     |
-|------------|------------------------|------------------------------------------------------------------------------------------------------------------------|
-| 주문         | order                  | 손님이 매장에 메뉴를 요청하는 것이다. 주문의 유형, 상태, 가격, 주소 등 정보가 한 곳에 모여있는 것을 의미한다.                                                      |
-| 주문 메뉴 가격   | order menu price       | 손님이 주문한 메뉴의 가격                                                                                                         |
-| 주문 메뉴 총 가격 | order menu total price | 손님이 주문한 메뉴의 총 가격                                                                                                       |
-| 주문 유형      | order type             | 손님이 메뉴를 요청하는 방식이다. 손님이 주문 유형을 선택할 수 있다.                                                                                |
-| 배달         | DELIVERY               | 손님이 원거리에 있는 식당에서 메뉴를 주문하고, 이를 배달 기사가 손님이 입력한 주소지까지 전달해줄때 이를 배달이라 한다. <br/> 주문 접수 대기 -> 접수 -> 서빙 -> 배달 중 -> 배달 완료 -> 완료 |
-| 포장         | TAKEOUT                | 손님이 주문한 메뉴를 가지고 식당을 떠날 경우 이를 포장이라 한다. <br/> 주문 접수 대기 -> 접수 -> 서빙 -> 완료                                                 |
-| 매장내주문      | EAT_IN                 | 손님이 매장내에서 식사를 할 경우 이것을 매장내 주문이라고 한다. <br/> 주문 접수 대기 -> 접수 -> 서빙 -> 완료                                                  |
-| 주문 상태      | order status           | 손님이 메뉴를 주문한 후 진행되는 과정이다.                                                                                               |
-| 주문 접수 대기   | WAITING                | 손님이 메뉴를 주문한 상태이고, 가게에서 접수하기 이전 상태이다.                                                                                   |
-| 접수         | ACCEPTED               | 가게에서 주문을 승낙한 상태이다.                                                                                                     |
-| 서빙         | SERVED                 | 메뉴가 준비된 상태이다.                                                                                                          |
-| 배달중        | DELIVERING             | 배달 기사가 손님이 입력한 주소지로 메뉴를 전달하는 중이다.                                                                                      |
-| 배달 완료      | DELIVERED              | 배달 기사가 손님이 입력한 주소지로 전달을 완료한 상태이다.                                                                                      |
-| 완료         | COMPLETED              | 메뉴가 손님에게 전달된 상태이다.                                                                                                     |
-| 배달 주소      | delivery address       | 배달 주문 메뉴를 전달할 주소지이다.                                                                                                   |
-| 배달 대행사     | delivery agency        | 배달을 요청한 손님에게 메뉴를 전달해주는 역할이다.                                                                                           |
-| 배달 대행 호출   | call delivery agency   | 손님의 주문 메뉴와 배달 주소를 배달 대행사에 전달하는 것이다.                                                                                    |
+| 한글명         | 영문명                    | 설명                                                                                                                     |
+|-------------|------------------------|------------------------------------------------------------------------------------------------------------------------|
+| 주문          | order                  | 손님이 매장에 메뉴를 요청하는 것이다. 주문의 유형, 상태, 가격, 주소 등 정보가 한 곳에 모여있는 것을 의미한다.                                                      |
+| 주문 메뉴 가격    | order menu price       | 손님이 주문한 메뉴의 가격                                                                                                         |
+| 주문 메뉴 총 가격  | order menu total price | 손님이 주문한 메뉴의 총 가격                                                                                                       |
+| 주문 유형       | order type             | 손님이 메뉴를 요청하는 방식이다. 손님이 주문 유형을 선택할 수 있다.                                                                                |
+| 배달          | DELIVERY               | 손님이 원거리에 있는 식당에서 메뉴를 주문하고, 이를 배달 기사가 손님이 입력한 주소지까지 전달해줄때 이를 배달이라 한다. <br/> 주문 접수 대기 -> 접수 -> 서빙 -> 배달 중 -> 배달 완료 -> 완료 |
+| 포장          | TAKEOUT                | 손님이 주문한 메뉴를 가지고 식당을 떠날 경우 이를 포장이라 한다. <br/> 주문 접수 대기 -> 접수 -> 서빙 -> 완료                                                 |
+| 매장내주문       | EAT_IN                 | 손님이 매장내에서 식사를 할 경우 이것을 매장내 주문이라고 한다. <br/> 주문 접수 대기 -> 접수 -> 서빙 -> 완료                                                  |
+| 주문 상태       | order status           | 손님이 메뉴를 주문한 후 진행되는 과정이다.                                                                                               |
+| 주문 접수 대기    | WAITING                | 손님이 메뉴를 주문한 상태이고, 가게에서 접수하기 이전 상태이다.                                                                                   |
+| 접수          | ACCEPTED               | 가게에서 주문을 승낙한 상태이다.                                                                                                     |
+| 서빙          | SERVED                 | 메뉴가 준비된 상태이다.                                                                                                          |
+| 배달중         | DELIVERING             | 배달 기사가 손님이 입력한 주소지로 메뉴를 전달하는 중이다.                                                                                      |
+| 배달 완료       | DELIVERED              | 배달 기사가 손님이 입력한 주소지로 전달을 완료한 상태이다.                                                                                      |
+| 완료          | COMPLETED              | 메뉴가 손님에게 전달된 상태이다.                                                                                                     |
+| 배달 주소       | delivery address       | 배달 주문 메뉴를 전달할 주소지이다.                                                                                                   |
+| 배달 대행사      | delivery agency        | 배달을 요청한 손님에게 메뉴를 전달해주는 역할이다.                                                                                           |
+| 배달 대행 호출    | call delivery agency   | 손님의 주문 메뉴와 배달 주소를 배달 대행사에 전달하는 것이다.                                                                                    |
+| 주문 목록 | order menu             | 손님이 주문한 메뉴를 확인할 수 있다.                                                                                                  |
 
 ### 공통
 
@@ -172,89 +173,102 @@ docker compose -p kitchenpos up -d
 ## 모델링
 
 ### 상품
+
 - `product` 속성
-  - `product price`와 `product name`이 있다. 
+    - `product price`와 `product name`이 있다.
 - `product` 행동
-  - `product price`가 비어있으면 등록할 수 없다.
-  - `product price`가 0원 이상이어야 한다.
-  - `product price`를 변경할 수 있다.
-  - `product price`가 변경되면 `menu`에 영향이 간다.
-    - `product price` > `menu product total price` = `menu status` -> `unavailable menu`
-  - `product list`는 한 개 이상의 모음을 조회한다.
-  - `product name`에 `purgomalum`가 포함될 수 없다.
-  - `product name`가 비어있으면 등록할 수 없다.
+    - `product price`가 비어있으면 등록할 수 없다.
+    - `product price`가 0원 이상이어야 한다.
+    - `product price`를 변경할 수 있다.
+    - `product price`가 변경되면 `menu`에 영향이 간다.
+        - `product price` > `menu product total price` = `menu status` -> `unavailable menu`
+    - `product list`는 한 개 이상의 모음을 조회한다.
+    - `product name`에 `purgomalum`가 포함될 수 없다.
+    - `product name`가 비어있으면 등록할 수 없다.
 
 ### 메뉴 그룹
+
 - `menu group` 속성
-  - `menu group name`이 있다
+    - `menu group name`이 있다
 - `menu group` 행동
-  - `menu group name`이 비어있으면 등록할 수 없다. 
-  - `menu group name`에 `purgomalum`가 포함될 수 없다.
-  - `menu group list`는 한 개 이상의 모음을 조회한다.
+    - `menu group name`이 비어있으면 등록할 수 없다.
+    - `menu group name`에 `purgomalum`가 포함될 수 없다.
+    - `menu group list`는 한 개 이상의 모음을 조회한다.
 
 ### 메뉴
+
 - `menu` 속성
-  - `menu name`이 있다.
-  - `menu price`가 있다.
-  - `menu products`가 있다.
-    - `menu products`안에 `menu product`가 있다.
-  - `menu group`안에 속해 있다.
-  - `menu status`가 있다.
-    - `unavailable menu`, `available menu`를 가지고 있다.
+    - `menu name`이 있다.
+    - `menu price`가 있다.
+    - `menu products`가 있다.
+        - `menu products`안에 `menu product`가 있다.
+    - `menu group`안에 속해 있다.
+    - `menu status`가 있다.
+        - `unavailable menu`, `available menu`를 가지고 있다.
 - `menu` 행동
-  - `menu name`이 비어있지 않다.
-  - `menu name`에 `purgomalum`가 포함될 수 없다.
-  - `menu`가 처음 만들어 질 때 `menu status` - `available menu`이다.
-  - `menu status`는 상황에 따라 `available menu`, `unavailable menu` 설정 된다.
-    - `menu product total price`는 `menu price` 보다 높아야 한다.
-    - `menu product total price` > `menu price` = `menu status` -> `available menu`
-    - `menu product total price` < `menu price` = `menu status` -> `unavailable menu`
-  - `menu products`에 `menu product`를 등록한다.
-  - `menu product list`를 조회할 수 있다.
-  - `menu product quantity`는 `menu`에 등록된 `product`의 수량을 입력해야 한다.  
-  - `menu product total price`는 `menu`에 등록된 `product price`의 총 합을 조회할 수 있다. 
+    - `menu name`이 비어있지 않다.
+    - `menu name`에 `purgomalum`가 포함될 수 없다.
+    - `menu`가 처음 만들어 질 때 `menu status` - `available menu`이다.
+    - `menu status`는 상황에 따라 `available menu`, `unavailable menu` 설정 된다.
+        - `menu product total price`는 `menu price` 보다 높아야 한다.
+        - `menu product total price` > `menu price` = `menu status` -> `available menu`
+        - `menu product total price` < `menu price` = `menu status` -> `unavailable menu`
+    - `menu products`에 `menu product`를 등록한다.
+    - `menu product list`를 조회할 수 있다.
+    - `menu product quantity`는 `menu`에 등록된 `product`의 수량을 입력해야 한다.
+    - `menu product total price`는 `menu`에 등록된 `product price`의 총 합을 조회할 수 있다.
 
 ### 메뉴 상품
+
 - `menu product` 속성
-  - `product`를 가지고 있다.
-  - `menu product quantity`는 수량이 있다.
+    - `product`를 가지고 있다.
+    - `menu product quantity`는 수량이 있다.
 - `menu product` 행동
-  - `menu prodcut`는 `menu`에 속해있다.
-  - `product`가 비어있을 수 없다.
-  - `menu product quantity`가 비어있을 수 없다.
+    - `menu prodcut`는 `menu`에 속해있다.
+    - `product`가 비어있을 수 없다.
+    - `menu product quantity`가 비어있을 수 없다.
 
 ### 주문 테이블
+
 - `order table` 속성
-  - `order table name`이 있다.
-  - `order table guest count`가 있다.
-  - `order table status`의 상태는 `empty table`와 `occupied table`가 존재한다. 
+    - `order table name`이 있다.
+    - `order table guest count`가 있다.
+    - `order table status`의 상태는 `empty table`와 `occupied table`가 존재한다.
+    - `order`를 갖고 있다.
 - `order table` 행동
-  - `order table list` 조회할 수 있다.
-  - `order table name` 을 등록해야 한다.
-  - `order table name` 비어있으면 안된다.
-  - `order table guest count`는 초기에 0명이다.
-  - `order table guest count`는 음수일 수 없다.
-  - `order table guest count`는 손님이 있으면 `occupied table` 없으면 `empty table`이어야 한다..
-  - `order table status`는 손님이 없을 경우 `empty table`이며 손님이 있으면 `occupied table` 상태이다.
+    - `order table list` 조회할 수 있다.
+    - `order table name`는 비어있으면 안된다.
+    - `order table guest count`는 초기에 0명이다.
+    - `order table guest count`는 음수일 수 없다.
+    - `order table status`는 `order table`의 상태를 나타낸다.
+        - `empty table` 손님이 없을 경우
+        - `occupied table` 손님이 있을 경우
 
 ### 주문
+
 - `order` 속성
-  - `order type`는 `DELIVERY`,`TAKEOUT`,`EAT_IN` 있다.
-  - `order status`는 `WAITING`, `ACCEPTED`, `SERVED`, `DELIVERING`, `DELIVERED`, `COMPLETED` 있다.
-  - `delivery address`와 `delivery agency` 있다.
+    - `order type`는 `DELIVERY`,`TAKEOUT`,`EAT_IN` 있다.
+    - `order status`는 `WAITING`, `ACCEPTED`, `SERVED`, `DELIVERING`, `DELIVERED`, `COMPLETED` 있다.
+    - `delivery address`를 갖고있다.
+    - `order menus`를 갖고 있다.
 - `order` 행동
-  - `order`를 요청을 받으면 `order status`의 `WAITING` 상태를 가진다.
-  - `order`를 요청을 수락하면 `order status`의 `ACCEPTED` 상태를 가진다.
-  - `order type`은 `DELIVERY` 이다.
-    - `call delivery agency`는 `delivery agency`를 호출한다.
-    - `delivery agency`에게 메뉴를 주면 `delivery address` 가진다. 
-    - `delivery agency`에게 메뉴를 주면 `order status`는 `SERVED` 상태를 가진다. 
-    - `order status`는 배달중일 때  `DELIVERING` 상태를 가진다.
-    - `order status`는 배달 완료일 때  `DELIVERED` 상태를 가진다.
-    - `order status`는  `DELIVERED`일 때 `COMPLETED`를 가질 수 있다.
-  - `order type`은 `TAKEOUT` 이다.
-    - `order status`는 메뉴가 손님에게 전달될 때 `SERVED` 상태를 가진다.
-    - `order status`는 메뉴를 손님이 가져갈 때 `COMPLETED` 상태를 가진다.
-  - `order type`은 `EAT_IN` 이다.
-    - `order status`는 메뉴가 손님에게 전달될 때 `SERVED` 상태를 가진다.
-    - `order status`는 메뉴를 손님이 가져갈 때 `COMPLETED` 상태를 가진다.
+    - `order`를 요청을 받으면 `order status`의 `WAITING` 상태를 가진다.
+    - `order`를 요청을 수락하면 `order status`의 `ACCEPTED` 상태를 가진다.
+    - `order type`은 `DELIVERY` 이다.
+        - `call delivery agency`는 `delivery agency`를 호출한다.
+        - `delivery agency`에게 메뉴를 주면 `delivery address` 가진다.
+        - `delivery agency`에게 메뉴를 주면 `order status`는 `SERVED` 상태를 가진다.
+        - `order status`는 배달중일 때  `DELIVERING` 상태를 가진다.
+        - `order status`는 배달 완료일 때  `DELIVERED` 상태를 가진다.
+        - `order status`는  `DELIVERED`일 때 `COMPLETED`를 가질 수 있다.
+    - `order type`은 `TAKEOUT` 이다.
+        - `order status`는 메뉴가 손님에게 전달될 때 `SERVED` 상태를 가진다.
+        - `order status`는 메뉴를 손님이 가져갈 때 `COMPLETED` 상태를 가진다.
+    - `order type`은 `EAT_IN` 이다.
+        - `order status`는 메뉴가 손님에게 전달될 때 `SERVED` 상태를 가진다.
+        - `order status`는 메뉴를 손님이 가져갈 때 `COMPLETED` 상태를 가진다.
+
+### 주문 메뉴
+- `order menu` 속성
+  - `order menu`는 손님이 주문한 `menu`다
+  - `quantity`과 `price`가 있다.
