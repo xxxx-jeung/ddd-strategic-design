@@ -194,29 +194,34 @@ docker compose -p kitchenpos up -d
 
 ### 메뉴
 - `menu` 속성
-  - `menu name`, `menu price`가 있다.
-  - `menu status`에서 상태는 `unavailable menu`, `available menu`가 존재한다.
-  - `menu product`와 `menu group`이 있다. 
+  - `menu name`이 있다.
+  - `menu price`가 있다.
+  - `menu products`가 있다.
+    - `menu products`안에 `menu product`가 있다.
+  - `menu group`안에 속해 있다.
+  - `menu status`가 있다.
+    - `unavailable menu`, `available menu`를 가지고 있다.
 - `menu` 행동
-  - `menu`를 등록할 수 있다.
-  - `menu group`에 속해있어야 한다.
-  - `menu name`가 비어있으면 등록할 수 없다.
+  - `menu name`이 비어있지 않다.
   - `menu name`에 `purgomalum`가 포함될 수 없다.
-  - `menu status`는 `available menu`와 `unavailable menu`가 존재한다.
-  - `menu status`는 최초 등록시 `available menu`이다.
-  - `menu status`를 `available menu` 설정 할 수 있다.
-  - `menu status`를 `unavailable menu` 설정 할 수 있다.
-  - `menu product`를 1개 이상 등록해야 한다.
-  - `menu product quantity`을 1개 이상 입력해야 한다.
-  - `menu price`가 비어있으면 등록할 수 없다.
-  - `menu price`가 0원 이상이어야 한다.
-  - `menu product total price`는 `menu price` 보다 높아야 한다.
+  - `menu`가 처음 만들어 질 때 `menu status` - `available menu`이다.
+  - `menu status`는 상황에 따라 `available menu`, `unavailable menu` 설정 된다.
+    - `menu product total price`는 `menu price` 보다 높아야 한다.
     - `menu product total price` > `menu price` = `menu status` -> `available menu`
-  - `menu prodcut`는 `menu`에 등록할 수 있다.
-    - `product`를 `menu`에 등록한다.
+    - `menu product total price` < `menu price` = `menu status` -> `unavailable menu`
+  - `menu products`에 `menu product`를 등록한다.
   - `menu product list`를 조회할 수 있다.
   - `menu product quantity`는 `menu`에 등록된 `product`의 수량을 입력해야 한다.  
   - `menu product total price`는 `menu`에 등록된 `product price`의 총 합을 조회할 수 있다. 
+
+### 메뉴 상품
+- `menu product` 속성
+  - `product`를 가지고 있다.
+  - `menu product quantity`는 수량이 있다.
+- `menu product` 행동
+  - `menu prodcut`는 `menu`에 속해있다.
+  - `product`가 비어있을 수 없다.
+  - `menu product quantity`가 비어있을 수 없다.
 
 ### 주문 테이블
 - `order table` 속성
