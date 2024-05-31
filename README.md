@@ -162,6 +162,9 @@ docker compose -p kitchenpos up -d
 | 배달 주소      | delivery address       | 배달 주문 메뉴를 전달할 주소지이다.                                                                                                   |
 | 배달 대행사     | delivery agency        | 배달을 요청한 손님에게 메뉴를 전달해주는 역할이다.                                                                                           |
 | 배달 대행 호출   | call delivery agency   | 손님의 주문 메뉴와 배달 주소를 배달 대행사에 전달하는 것이다.                                                                                    |
+| 주문 목록      | order menu             | 손님이 주문한 메뉴를 확인할 수 있다.                                                                                                  |
+| 주문 시간      | order date time        | 손님이 주문한 시간을 확인할 수 있다.                                                                                                  |
+| 주문 메뉴 항목   | order menu item        | 손님이 주문한 메뉴 항목을 확인할 수 있다.                                                                                               |
 
 ### 공통
 
@@ -170,3 +173,198 @@ docker compose -p kitchenpos up -d
 | 비속어 | purgomalum | 사회적으로 부적절하거나 무례하게 여겨지는 단어나 표현을 말한다. |
 
 ## 모델링
+
+### 상품
+
+- `product` 속성
+    - `product price`와 `product name`이 있다.
+- `product` 행동
+    - `product`을 등록한다.
+        - `product name`는 비어있거나 공백일 수 없다.
+        - `purgomalum`가 포함될 수 없다.
+        - `product price`는 비어있거나 공백일 수 없다.
+        - `product price`는 음수 일 수 없다.
+    - `product price`를 변경한다.
+        - `product price`는 비어있거나 공백일 수 없다.
+        - `product price`는 음수 일 수 없다.
+    - `product price`가 변경되면 `menu`에 영향이 간다.
+        - `product price` > `menu product total price` = `menu status` -> `unavailable menu`
+    - `product list`는 한 개 이상의 모음을 조회한다.
+
+### 메뉴 그룹
+
+- `menu group` 속성
+    - `menu group name`이 있다
+- `menu group` 행동
+    - `menu group`을 등록한다.
+        - `menu group name`이 비어있거나 공백일 수 없다.
+        - `purgomalum`가 포함될 수 없다.
+    - `menu group list`는 한 개 이상의 모음을 조회한다.
+
+### 메뉴
+
+- `menu` 속성
+    - `menu name`과 `menu price`가 있다.
+    - `menu products`가 있다.
+        - `menu products`는 여러개의 `menu product`가 들어있다.
+    - `menu group`이 있다.
+        - `menu`는 `menu group`에 속해있다.
+    - `menu status`가 있다.
+        - `unavailable menu`와 `available menu`로 나뉜다.
+- `menu` 행동
+    - `menu`를 등록한다.
+        - `menu name`가 비어있거나 공백일 수 없다.
+        - `menu name`에 `purgomalum`가 포함될 수 없다.
+        - `menu price`는 비어있거나 공백일 수 없다.
+        - `menu price`는 음수 일 수 없다.
+        - `menu status`는 사용자의 요청에 따라 `available menu`, `unavailable menu`가 설정 된다.
+        - `menu products`는 `menu product`가 1개 이상 있어야 한다.
+        - `menu product total price` > `menu price` 이어야 한다.
+    - `menu price`를 수정한다.
+        - `menu price`가 비어있거나 공백일 수 없다.
+        - `menu price`는 음수 일 수 없다.
+        - `menu product total price` > `menu price` 이어야 한다.
+    - `menu`를 보여준다.
+        - `menu product total price` > `menu price` 이어야 한다.
+    - `menu`를 숨긴다.
+
+### 메뉴 상품
+
+- `menu product` 속성
+    - `product`를 가지고 있다.
+    - `menu product quantity`는 수량이 있다.
+- `menu product` 행동
+    - `menu product`를 등록한다.
+        - `menu product`는 `menu`에 종속되어 있다.
+        - `menu`를 등록할 때 `menu product`를 등록할 수 있다.
+        - `product`는 비어있을 수 없다.
+        - `menu product quantity`는 비어있거나 공백일 수 없다.
+        - `menu product quantity`는 0보다 작을 수 없다.
+- `menu products` 속성
+    - `menu product`를 여러개 갖고 있다.
+- `menu products` 행동
+    - `menu products`에 `menu product`를 여러개 등록할 수 있다.
+        - 비어있거나 존재하지 않는 `menu product`를 등록할 수 없다.
+    - `menu products` -> `menu product` -> `menu product price`의 총 합을 조회할 수 있다.
+        - `menu product`가 1개 이상 있어야 한다.
+
+### 주문 테이블
+
+- `order table` 속성
+    - `order table name`이 있다.
+    - `order table guest count`가 있다.
+    - `order table status`가 있다.
+        - `order table`의 상태를 판별한다.
+        - `empty table`와 `occupied table`는 상태를 의미한다.
+- `order table` 행동
+    - `order table`을 생성한다.
+        - `order table name`가 비어있거나 공백일 수 없다.
+        - `order table guest count`는 0으로 초기화 한다.
+        - `order table status`의 상태는 `empty table`이다.
+    - `order table`을 앉는다.
+        - `order table guest count`는 1보다 작을 수 없다.
+        - `order table status` -> `occupied table` 변경된다.
+    - `order table`을 비운다.
+        - `order table guest count`는 0값이 된다.
+        - `order table status` -> `empty table` 변경된다.
+    - `order table`의 인원을 바꾼다.
+        - `order table guest count`는 0보다 작을 수 없다.
+        - `order table status` -> `empty table` 일 수 없다.
+    - `order table`을 전체 조회한다.
+
+### 주문
+
+- `order` 속성
+    - `order type`이 있다.
+        - `order type`의 상태는 `DELIVERY`,`TAKEOUT`,`EAT_IN` 이다.
+    - `order status`가 있다.
+        - `order status`의 상태는 `WAITING`, `ACCEPTED`, `SERVED`, `DELIVERING`, `DELIVERED`, `COMPLETED` 이다.
+    - `delivery address`가 있다.
+    - `order date time`이 있다.
+    - `order menu`가 있다.
+        - `order menu item`은 `order menu`에 속해있다.
+- `order` 행동
+    - `order`를 생성한다.
+        - `order status` 상태가 있어야 한다.
+        - `order menu` 안에 `order menu item`가 1개 이상 있어야 한다.
+        - `order type`은 `order`에 따라 지정된다.
+        - `order status`는 `WAITING` 이다.
+        - `order date time`은 `order`가 들어온 시간이다.
+
+### 배달
+
+- `order` 행동
+    - `order`를 수락한다.
+        - `order`가 존재해야 한다.
+        - `order status`가 `WAITING` 이어야 한다.
+        - `order type`은 `DELIVERY` 이어야 한다.
+        - `call delivery agency` 한다.
+        - `order status`를 `ACCEPTED`로 변경한다.
+    - `order`를 서빙한다.
+        - `order`가 존재해야 한다.
+        - `order status`를 `SERVED`로 변경한다.
+    - `order`를 배달한다.
+        - `order`가 존재해야 한다.
+        - `order type`은 `DELIVERY`가 아니어야 한다.
+        - `order status`는 `SERVED`가 아니어야 한다.
+        - `call delivery agency` 한다.
+        - `order status`를 `DELIVERING`로 변경한다.
+    - `order`를 배달 완료 한다.
+        - `order`가 존재해야 한다.
+        - `order status`는 `DELIVERING`이 아니어야 한다.
+        - `order status`를 `DELIVERED`로 변경한다.
+    - `order`를 완료한다.
+        - `order`가 존재해야 한다.
+        - `order type`은 `DELIVERY`이고, `order status`는 `DELIVERED`여야 한다.
+        - `order type`은 `COMPLETED`로 변경한다.
+
+### 가져가기
+
+- `order` 행동
+    - `order`를 수락한다.
+        - `order`가 존재해야 한다.
+        - `order status`가 `WAITING` 이어야 한다.
+        - `order status`를 `ACCEPTED`로 변경한다.
+    - `order`를 서빙한다.
+        - `order`가 존재해야 한다.
+        - `order status`를 `SERVED`로 변경한다.
+    - `order`를 완료한다.
+        - `order type`은 `TAKEOUT`여야 한다.
+        - `order status`는 `SERVED`가 아니여야 한다.
+        - `order type`은 `COMPLETED`로 변경한다.
+
+### 먹고가기
+
+- `order` 행동
+    - `order`를 수락한다.
+        - `order`가 존재해야 한다.
+        - `order status`가 `WAITING` 이어야 한다.
+        - `order status`를 `ACCEPTED`로 변경한다.
+    - `order`를 서빙한다.
+        - `order`가 존재해야 한다.
+        - `order status`를 `SERVED`로 변경한다.
+    - `order`를 완료한다.
+        - `order type`은 `TAKEOUT`여야 한다.
+        - `order status`는 `SERVED`가 아니여야 한다.
+        - `order type`은 `COMPLETED`로 변경한다.
+        - `order table` -> `order table guest count`는 0값이 된다.
+        - `order table status` -> `empty table` 변경된다.
+
+### 주문 메뉴
+
+- `order menu` 속성
+    - `order menu`는 손님이 주문한 `order menu item`이다
+- `order menu` 행동
+    - `order menu`에 `order menu item`을 여러개 등록할 수 있다.
+        - 비어있거나 존재하지 않는 `order menu item`를 등록할 수 없다.
+
+- `order menu item` 속성
+    - `menu`가 있다.
+    - `quantity`가 있다.
+    - `price`가 있다.
+- `order menu item` 행동
+    - `order menu item`을 등록한다.
+        - `menu` 중 `order menu item` 같은 메뉴가 있어야 한다.
+        - `price`는 `menu price`와 같아야 한다.
+        - `menu` -> `menu status` -> `available menu` 이어야 한다.
+        - `order` -> `order type` -> `EAT_IN` 이거나, `EAT_IN`이 아니어도 `quantity`가 0보다 커야 한다.
