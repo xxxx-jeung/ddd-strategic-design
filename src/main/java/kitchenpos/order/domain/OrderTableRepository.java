@@ -1,4 +1,4 @@
-package kitchenpos.domain;
+package kitchenpos.order.domain;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +11,3 @@ public interface OrderTableRepository {
 
     List<OrderTable> findAll();
 }
-
